@@ -2,9 +2,7 @@
 
 An autonomous web-research assistant that searches, reads, and synthesizes answers with citations — built on Next.js 16, AI SDK v6, the Vercel AI Gateway, and Exa.
 
-> **Live demo:** https://research-agent-<deployed-slug>.vercel.app
->
-> _(URL will be filled in after the production deploy.)_
+> **Live demo:** [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app)
 
 <!--
 Screenshots below are added after the production deploy by capturing the live URL.
