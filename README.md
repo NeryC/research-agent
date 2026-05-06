@@ -5,12 +5,14 @@ An autonomous web-research assistant that searches, reads, and synthesizes answe
 > **Live demo:** [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app)
 
 <!--
-Screenshots below are added after the production deploy by capturing the live URL.
+Drop two screenshots into `docs/` and they'll show up here:
+  - docs/screenshot-agent-steps.png   (the tool-call timeline as the agent searches/reads)
+  - docs/screenshot-final-answer.png  (the markdown answer with cited sources)
 File names are intentionally fixed so the README links never break.
--->
 
 ![Agent reasoning steps](docs/screenshot-agent-steps.png)
 ![Final answer with sources](docs/screenshot-final-answer.png)
+-->
 
 ## Stack
 
