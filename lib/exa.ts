@@ -1,11 +1,27 @@
 const EXA_BASE = 'https://api.exa.ai';
 
 export type ExaResult = {
-  id: string;
+  id?: string;
   title: string;
   url: string;
   highlights?: string[];
 };
+
+type ExaSearchResponse = { results?: ExaResult[] };
+type ExaContentsResponse = {
+  results?: Array<{ url: string; title?: string; text?: string }>;
+};
+
+async function parseJsonOrThrow<T>(res: Response, endpoint: string): Promise<T> {
+  try {
+    return (await res.json()) as T;
+  } catch {
+    const raw = await res.text().catch(() => '<unreadable body>');
+    throw new Error(
+      `Exa ${endpoint} returned non-JSON ${res.status} response: ${raw.slice(0, 200)}`,
+    );
+  }
+}
 
 export async function searchExa(query: string, numResults = 5): Promise<ExaResult[]> {
   const apiKey = process.env.EXA_API_KEY;
@@ -30,7 +46,7 @@ export async function searchExa(query: string, numResults = 5): Promise<ExaResul
     throw new Error(`Exa /search failed: ${res.status} ${body}`);
   }
 
-  const data = await res.json();
+  const data = await parseJsonOrThrow<ExaSearchResponse>(res, '/search');
   return data.results ?? [];
 }
 
@@ -61,7 +77,7 @@ export async function readExaPage(url: string): Promise<ExaPage> {
     throw new Error(`Exa /contents failed: ${res.status} ${body}`);
   }
 
-  const data = await res.json();
+  const data = await parseJsonOrThrow<ExaContentsResponse>(res, '/contents');
   const first = data.results?.[0];
   if (!first) throw new Error(`Exa /contents returned no results for ${url}`);
 
