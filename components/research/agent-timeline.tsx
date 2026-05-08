@@ -1,6 +1,7 @@
 import type { UIMessage } from 'ai';
 import { isToolUIPart, getToolName } from 'ai';
 import { ToolCallCard } from './tool-call-card';
+import { ThinkingPlaceholder } from './thinking-placeholder';
 import { Loader2 } from 'lucide-react';
 
 type Props = { messages: UIMessage[]; isStreaming?: boolean };
@@ -30,7 +31,6 @@ export function AgentTimeline({ messages, isStreaming }: Props) {
     for (const part of msg.parts) {
       if (!isToolUIPart(part)) continue;
       const toolName = getToolName(part);
-      // skip the finalAnswer tool — rendered separately
       if (toolName === 'finalAnswer') continue;
       if (!isRenderableState(part.state)) continue;
 
@@ -47,10 +47,15 @@ export function AgentTimeline({ messages, isStreaming }: Props) {
     }
   }
 
+  // Show thinking placeholder when streaming but no tool cards yet
+  if (isStreaming && items.length === 0) {
+    return <ThinkingPlaceholder />;
+  }
+
   if (items.length === 0) return null;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 animate-fade-in">
       <div className="flex items-center gap-2">
         <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
           Agent steps

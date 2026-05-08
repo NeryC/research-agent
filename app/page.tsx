@@ -4,7 +4,7 @@ import { Search, BookOpen, Sparkles } from 'lucide-react';
 export default function Home() {
   return (
     <main className="container mx-auto max-w-3xl p-6 space-y-10">
-      <header className="space-y-6 pt-4">
+      <header className="space-y-6 pt-4 animate-fade-in">
         {/* Badge pill */}
         <div className="flex justify-center">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border bg-indigo-500/10 text-indigo-300 border-indigo-500/20">
