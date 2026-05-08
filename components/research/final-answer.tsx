@@ -35,8 +35,7 @@ export function FinalAnswer({ messages }: { messages: UIMessage[] }) {
   if (!final) return null;
 
   return (
-    <div aria-live="polite" aria-atomic="false">
-      <article className="space-y-4 border rounded-lg p-5 bg-card">
+    <article className="space-y-4 border rounded-lg p-5 bg-card">
         {/* Research complete badge */}
         <div className="flex items-center gap-2">
           <CheckCircle className="w-4 h-4 text-green-600 shrink-0" aria-hidden="true" />
@@ -59,7 +58,6 @@ export function FinalAnswer({ messages }: { messages: UIMessage[] }) {
             </div>
           </div>
         )}
-      </article>
-    </div>
+    </article>
   );
 }

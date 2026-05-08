@@ -79,7 +79,7 @@ export function ResearchInput({ disabled, onSubmit }: Props) {
             type="button"
             disabled={disabled}
             onClick={() => {
-              onSubmit(s);
+              setValue(s);
             }}
             className="text-xs px-2 py-1 rounded border bg-muted/40 hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
