@@ -133,6 +133,9 @@
 }
 
 .skeleton {
+  /* Fallback for browsers without CSS relative color syntax */
+  background: var(--muted);
+  /* Shimmer gradient for modern browsers (Chrome 111+, Safari 16.4+, Firefox 128+) */
   background: linear-gradient(
     90deg,
     var(--muted) 25%,

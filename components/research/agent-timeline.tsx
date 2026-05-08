@@ -36,7 +36,7 @@ export function AgentTimeline({ messages, isStreaming }: Props) {
 
       items.push(
         <ToolCallCard
-          key={part.toolCallId}
+          key={part.toolCallId ?? `${msg.id ?? 'msg'}-${items.length}`}
           toolName={toolName}
           input={part.input}
           output={part.state === 'output-available' ? part.output : undefined}
