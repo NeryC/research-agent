@@ -24,6 +24,13 @@ export function rateLimit(key: string, opts: RateLimitOptions): RateLimitResult 
   return { allowed: true, remaining: opts.max - existing.count };
 }
 
+export function pruneExpired(): void {
+  const now = Date.now();
+  for (const [key, bucket] of buckets) {
+    if (bucket.resetAt <= now) buckets.delete(key);
+  }
+}
+
 export function _resetForTests() {
   buckets.clear();
 }
