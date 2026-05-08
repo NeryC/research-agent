@@ -7,7 +7,7 @@ export default function Home() {
       <header className="space-y-6 pt-4">
         {/* Badge pill */}
         <div className="flex justify-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border bg-muted/50 text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border bg-indigo-500/10 text-indigo-300 border-indigo-500/20">
             <Sparkles className="w-3 h-3" aria-hidden="true" />
             Powered by Claude Sonnet + Exa AI
           </span>
@@ -15,7 +15,7 @@ export default function Home() {
 
         {/* Hero heading */}
         <div className="text-center space-y-3">
-          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-br from-white via-indigo-200 to-violet-400 bg-clip-text text-transparent">
             Research Agent
           </h1>
           <p className="text-muted-foreground text-base max-w-xl mx-auto leading-relaxed">

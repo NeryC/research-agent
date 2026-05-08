@@ -68,7 +68,7 @@ export function ToolCallCard({ toolName, input, output, errorText, state }: Prop
   const hasDetails = output !== undefined || errorText !== undefined || input !== undefined;
 
   return (
-    <Card className="border-l-4 border-l-blue-500/40 overflow-hidden">
+    <Card className="border-l-4 border-l-indigo-500/40 overflow-hidden">
       <CardHeader className="py-3">
         <CardTitle className="text-sm flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
