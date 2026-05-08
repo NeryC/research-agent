@@ -1,8 +1,8 @@
 # Research Agent
 
-Un asistente de investigación autónomo que busca, lee y sintetiza respuestas con citas reales — construido sobre Next.js 16, AI SDK v6, Vercel AI Gateway y Exa.
+An autonomous research assistant that searches the web, reads sources, and synthesizes cited answers — built on Next.js 16, AI SDK v6, Vercel AI Gateway, and Exa.
 
-> **Demo en vivo:** [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app)  
+> **Live demo:** [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app)  
 > **GitHub:** [github.com/NeryC/research-agent](https://github.com/NeryC/research-agent)
 
 <!--
@@ -12,93 +12,93 @@ Un asistente de investigación autónomo que busca, lee y sintetiza respuestas c
 
 ---
 
-## ¿Qué hace este proyecto?
+## What does this project do?
 
-El Research Agent es un agente de IA que actúa como un investigador personal. A diferencia de un chatbot ordinario que responde desde su conocimiento de entrenamiento, este agente:
+The Research Agent is an AI agent that acts as a personal researcher. Unlike an ordinary chatbot that responds from its training knowledge, this agent:
 
-1. **Busca en internet en tiempo real** usando Exa AI, encontrando páginas relevantes y actuales sobre el tema
-2. **Lee el contenido de esas páginas** para obtener información detallada y precisa
-3. **Razona en múltiples pasos** — puede buscar, leer varios artículos, volver a buscar con términos refinados, y así sucesivamente hasta tener información suficiente
-4. **Sintetiza una respuesta estructurada** en formato Markdown con secciones, listas y comparaciones
-5. **Cita todas sus fuentes** con título y URL de cada página que realmente consultó (no referencias inventadas)
+1. **Searches the internet in real time** using Exa AI, finding relevant and up-to-date pages on the topic
+2. **Reads the content of those pages** to obtain detailed and accurate information
+3. **Reasons in multiple steps** — it can search, read several articles, search again with refined terms, and so on until it has enough information
+4. **Synthesizes a structured answer** in Markdown format with sections, lists, and comparisons
+5. **Cites all its sources** with the title and URL of every page it actually consulted (no fabricated references)
 
-Todo esto sucede de forma **visible y transparente** — el usuario ve cada paso que el agente da: qué buscó, qué leyó, y cómo llegó a su respuesta final.
+All of this happens in a **visible and transparent** way — the user sees every step the agent takes: what it searched for, what it read, and how it arrived at its final answer.
 
 ---
 
-## Tutorial paso a paso
+## Step-by-step tutorial
 
-### Paso 1: Abre la aplicación
+### Step 1: Open the application
 
-Ve a [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app). Verás una interfaz de chat con sugerencias de preguntas de ejemplo.
+Go to [research-agent-three-pi.vercel.app](https://research-agent-three-pi.vercel.app). You will see a chat interface with suggested example questions.
 
-### Paso 2: Escribe una pregunta de investigación
+### Step 2: Type a research question
 
-Escribe cualquier pregunta que requiera información actualizada o comparación de fuentes. Por ejemplo:
-
-```
-¿Cuáles son las diferencias entre Vercel AI Gateway y LiteLLM?
-```
+Type any question that requires up-to-date information or a comparison of sources. For example:
 
 ```
-¿Qué es pgvector y cómo se compara con Pinecone?
+What are the differences between Vercel AI Gateway and LiteLLM?
+```
+
+```
+What is pgvector and how does it compare to Pinecone?
 ```
 
 ```
 Explain the latest advances in multimodal AI models in 2024
 ```
 
-> **Tip:** Las preguntas que se benefician más son las que requieren comparar alternativas, entender tecnologías recientes, o investigar un tema con múltiples fuentes. Preguntas simples de definición también funcionan, pero el agente brilla en investigación compleja.
+> **Tip:** Questions that benefit most are those that require comparing alternatives, understanding recent technologies, or researching a topic with multiple sources. Simple definition questions work too, but the agent shines on complex research.
 
-### Paso 3: Observa al agente razonar
+### Step 3: Watch the agent reason
 
-Inmediatamente después de enviar la pregunta, verás una **línea de tiempo de acciones** que se actualiza en tiempo real:
+Immediately after submitting the question, you will see an **action timeline** that updates in real time:
 
 ```
 🔍 searchWeb("Vercel AI Gateway vs LiteLLM comparison")
-   → 5 resultados encontrados
+   → 5 results found
 
 📄 readPage("https://vercel.com/docs/ai-gateway")
-   → Leyendo contenido...
+   → Reading content...
 
 🔍 searchWeb("LiteLLM features pricing 2024")
-   → 5 resultados encontrados
+   → 5 results found
 
 📄 readPage("https://docs.litellm.ai/docs/")
-   → Leyendo contenido...
+   → Reading content...
 
 ✅ finalAnswer
-   → Generando respuesta...
+   → Generating answer...
 ```
 
-Cada tarjeta muestra qué herramienta usó el agente y el resultado que obtuvo.
+Each card shows which tool the agent used and the result it obtained.
 
-### Paso 4: Lee la respuesta con citas
+### Step 4: Read the answer with citations
 
-Al finalizar, aparece la respuesta en Markdown con:
-- Secciones bien organizadas
-- Comparaciones en tablas cuando aplica
-- Al final, tarjetas de fuentes con el título y URL de cada página leída
+When finished, the answer appears in Markdown with:
+- Well-organized sections
+- Comparison tables where applicable
+- At the bottom, source cards with the title and URL of each page read
 
-### Paso 5: Haz preguntas de seguimiento
+### Step 5: Ask follow-up questions
 
-Puedes continuar la conversación con preguntas de seguimiento:
+You can continue the conversation with follow-up questions:
 ```
-¿Cuál tiene mejor soporte para Claude?
+Which one has better support for Claude?
 ```
 ```
-¿Cuánto cuesta cada opción?
+How much does each option cost?
 ```
-El historial de conversación se mantiene en memoria durante la sesión.
+The conversation history is kept in memory for the duration of the session.
 
 ---
 
-## Demostración: flujo interno completo
+## Demo: complete internal flow
 
-Para entender qué pasa bajo el capó cuando escribes una pregunta, aquí está el flujo completo trazado paso a paso:
+To understand what happens under the hood when you type a question, here is the complete flow traced step by step:
 
 ```
-Usuario escribe: "What are the best vector databases in 2024?"
+User types: "What are the best vector databases in 2024?"
         │
         ▼
 ┌─────────────────────────────┐
@@ -111,10 +111,10 @@ Usuario escribe: "What are the best vector databases in 2024?"
 ┌─────────────────────────────────────────────────────────────┐
 │  Route Handler: /api/research/route.ts                      │
 │                                                             │
-│  1. Extrae IP del header "x-forwarded-for"                  │
-│  2. Verifica rate limit: ¿este IP ha hecho < 5 req/hora?    │
-│  3. Llama: researchAgent.stream({ messages })               │
-│  4. Retorna un UIMessageStream al navegador                 │
+│  1. Extract IP from "x-forwarded-for" header               │
+│  2. Check rate limit: has this IP made < 5 req/hour?        │
+│  3. Call: researchAgent.stream({ messages })                │
+│  4. Return a UIMessageStream to the browser                 │
 └────────────────────────────┬────────────────────────────────┘
                              │
                              ▼
@@ -122,175 +122,175 @@ Usuario escribe: "What are the best vector databases in 2024?"
 │  ToolLoopAgent (AI SDK v6)                                  │
 │                                                             │
 │  Model: claude-sonnet-4.6 (via Vercel AI Gateway)           │
-│  System prompt: "Eres un asistente de investigación..."     │
-│  Tools disponibles: searchWeb, readPage, finalAnswer        │
-│  stopWhen: stepCountIs(8)  ← máximo 8 iteraciones          │
+│  System prompt: "You are a research assistant..."           │
+│  Available tools: searchWeb, readPage, finalAnswer          │
+│  stopWhen: stepCountIs(8)  ← maximum 8 iterations          │
 │                                                             │
-│  Iteración 1: El modelo decide llamar searchWeb             │
+│  Iteration 1: model decides to call searchWeb               │
 │  → searchWeb({ query: "best vector databases 2024" })       │
-│    → Exa /search → 5 resultados con highlights             │
-│    → Resultado devuelto al modelo                           │
+│    → Exa /search → 5 results with highlights               │
+│    → Result returned to model                               │
 │                                                             │
-│  Iteración 2: El modelo decide leer uno de los resultados   │
+│  Iteration 2: model decides to read one of the results      │
 │  → readPage({ url: "https://..." })                         │
-│    → Exa /contents → texto completo (hasta 8000 chars)     │
-│    → Resultado devuelto al modelo                           │
+│    → Exa /contents → full text (up to 8000 chars)          │
+│    → Result returned to model                               │
 │                                                             │
-│  Iteración 3: El modelo tiene suficiente info               │
+│  Iteration 3: model has enough information                  │
 │  → finalAnswer({ answer: "...", sources: [...] })           │
-│    ← Tool sin execute → loop termina aquí                   │
+│    ← Tool without execute → loop ends here                  │
 └─────────────────────────────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Stream de vuelta al navegador                              │
-│  - Cada tool call aparece como tarjeta en tiempo real       │
-│  - La respuesta final aparece debajo con fuentes            │
+│  Stream back to browser                                     │
+│  - Each tool call appears as a card in real time            │
+│  - The final answer appears below with source cards         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Arquitectura del código
+## Code architecture
 
-### Estructura de carpetas
+### Folder structure
 
 ```
 research-agent/
 ├── app/
-│   ├── page.tsx                  # Página principal (Server Component)
+│   ├── page.tsx                  # Main page (Server Component)
 │   ├── research-client.tsx       # Chat UI (Client Component, useChat)
 │   └── api/
 │       └── research/
-│           └── route.ts          # Route Handler — punto de entrada de la API
+│           └── route.ts          # Route Handler — API entry point
 ├── lib/
 │   ├── agent/
-│   │   ├── model.ts              # Constante del modelo a usar
-│   │   ├── tools.ts              # Definición de las 3 herramientas
-│   │   └── research-agent.ts    # Instancia del ToolLoopAgent
-│   ├── exa.ts                    # Cliente HTTP para la API de Exa
-│   └── rate-limit.ts             # Rate limiter en memoria (IP-based)
+│   │   ├── model.ts              # Model constant
+│   │   ├── tools.ts              # Definition of the 3 agent tools
+│   │   └── research-agent.ts    # ToolLoopAgent instance
+│   ├── exa.ts                    # HTTP client for the Exa API
+│   └── rate-limit.ts             # In-memory rate limiter (IP-based)
 └── tests/
-    ├── exa.test.ts               # Tests del cliente Exa
-    ├── rate-limit.test.ts        # Tests del rate limiter
-    └── tools.test.ts             # Tests de las herramientas del agente
+    ├── exa.test.ts               # Tests for the Exa client
+    ├── rate-limit.test.ts        # Tests for the rate limiter
+    └── tools.test.ts             # Tests for the agent tools
 ```
 
-### Archivo por archivo: qué hace cada uno
+### File by file: what each one does
 
-#### `app/api/research/route.ts` — El punto de entrada HTTP
+#### `app/api/research/route.ts` — The HTTP entry point
 
 ```typescript
 export async function POST(req: Request) {
-  // 1. Extraer IP para rate limiting
+  // 1. Extract IP for rate limiting
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
 
-  // 2. Verificar límite de uso
-  const limit = rateLimit(ip, { max: 5, windowMs: 60 * 60 * 1000 }); // 5/hora
+  // 2. Check usage limit
+  const limit = rateLimit(ip, { max: 5, windowMs: 60 * 60 * 1000 }); // 5/hour
   if (!limit.allowed) {
     return new Response('Rate limit exceeded. Try again in an hour.', { status: 429 });
   }
 
-  // 3. Parsear el cuerpo — messages es el historial de conversación en formato UIMessage
+  // 3. Parse the body — messages is the conversation history in UIMessage format
   const { messages }: { messages: UIMessage[] } = await req.json();
 
-  // 4. Arrancar el agente con streaming
+  // 4. Start the agent with streaming
   const result = await researchAgent.stream({
-    messages: await convertToModelMessages(messages), // Convierte formato UI → formato del modelo
+    messages: await convertToModelMessages(messages), // Convert UI format → model format
   });
 
-  // 5. Devolver el stream al cliente
+  // 5. Return the stream to the client
   return result.toUIMessageStreamResponse();
 }
 ```
 
-**¿Por qué `convertToModelMessages`?** El AI SDK v6 separa los mensajes de la UI (que incluyen metadatos de herramientas para mostrar en pantalla) del formato que entiende el modelo (texto plano con roles). Esta función hace esa conversión.
+**Why `convertToModelMessages`?** AI SDK v6 separates UI messages (which include tool metadata for rendering on screen) from the format the model understands (plain text with roles). This function performs that conversion.
 
 ---
 
-#### `lib/agent/research-agent.ts` — El corazón del agente
+#### `lib/agent/research-agent.ts` — The heart of the agent
 
 ```typescript
 export const researchAgent = new ToolLoopAgent({
   model: RESEARCH_MODEL,                    // claude-sonnet-4.6 via AI Gateway
-  instructions: SYSTEM_PROMPT,             // "Eres un asistente de investigación..."
+  instructions: SYSTEM_PROMPT,             // "You are a research assistant..."
   tools: {
-    searchWeb: searchWebTool,              // Busca en internet
-    readPage: readPageTool,                // Lee una página específica
-    finalAnswer: finalAnswerTool,          // Produce la respuesta final (terminal)
+    searchWeb: searchWebTool,              // Searches the internet
+    readPage: readPageTool,                // Reads a specific page
+    finalAnswer: finalAnswerTool,          // Produces the final answer (terminal)
   },
-  stopWhen: stepCountIs(8),               // Máximo 8 pasos para evitar bucles infinitos
+  stopWhen: stepCountIs(8),               // Maximum 8 steps to prevent infinite loops
 });
 ```
 
-`ToolLoopAgent` es el patrón recomendado en AI SDK v6. Encapsula:
-- Qué **modelo** usar
-- Qué **instrucciones** del sistema seguir
-- Qué **herramientas** tiene disponibles
-- Cuándo **parar** el bucle
+`ToolLoopAgent` is the recommended pattern in AI SDK v6. It encapsulates:
+- Which **model** to use
+- Which **system instructions** to follow
+- Which **tools** are available
+- When to **stop** the loop
 
-El loop funciona así: el modelo recibe los mensajes, decide llamar una herramienta, esa herramienta se ejecuta, el resultado va de vuelta al modelo, y así sucesivamente hasta que el modelo llama `finalAnswer` (que no tiene `execute`) o se alcanzan los 8 pasos.
+The loop works as follows: the model receives the messages, decides to call a tool, that tool executes, the result goes back to the model, and so on until the model calls `finalAnswer` (which has no `execute`) or the 8-step limit is reached.
 
 ---
 
-#### `lib/agent/tools.ts` — Las 3 herramientas del agente
+#### `lib/agent/tools.ts` — The 3 agent tools
 
-**`searchWeb`** — Busca en internet:
+**`searchWeb`** — Searches the internet:
 ```typescript
 export const searchWebTool = tool({
-  description: 'Search the web for relevant pages on a topic...',
+  description: 'Search the web for relevant pages on a topic. Returns a list of results with titles, URLs, and highlights.',
   inputSchema: z.object({
     query: z.string().describe('The search query'),
   }),
   execute: async ({ query }) => {
-    const results = await searchExa(query, 5); // Máximo 5 resultados
+    const results = await searchExa(query, 5); // Maximum 5 results
     return results.map((r) => ({
       title: r.title,
       url: r.url,
-      highlights: r.highlights ?? [], // Fragmentos relevantes pre-extraídos por Exa
+      highlights: r.highlights ?? [], // Relevant snippets pre-extracted by Exa
     }));
   },
 });
 ```
 
-**`readPage`** — Lee el contenido completo de una URL:
+**`readPage`** — Reads the full content of a URL:
 ```typescript
 export const readPageTool = tool({
-  description: 'Read the full text content of a specific web page...',
+  description: 'Read the full text content of a specific web page by its URL.',
   inputSchema: z.object({ url: z.string().url() }),
   execute: async ({ url }) => {
     const page = await readExaPage(url);
-    return { title: page.title, url: page.url, content: page.content }; // hasta 8000 chars
+    return { title: page.title, url: page.url, content: page.content }; // up to 8000 chars
   },
 });
 ```
 
-**`finalAnswer`** — La herramienta terminal (sin `execute`):
+**`finalAnswer`** — The terminal tool (no `execute`):
 ```typescript
 export const finalAnswerTool = tool({
-  description: 'Submit the final answer with structured citations...',
+  description: 'Submit the final answer to the user with structured citations.',
   inputSchema: z.object({
-    answer: z.string(),      // Respuesta en Markdown
+    answer: z.string(),      // Answer in Markdown
     sources: z.array(z.object({
       url: z.string().url(),
       title: z.string(),
       snippet: z.string().optional(),
     })),
   }),
-  // ← Sin execute: cuando el modelo llama esta tool, el loop para inmediatamente
+  // No execute — terminal signal: when the model calls this tool, the loop stops immediately
 });
 ```
 
-**¿Por qué sin `execute`?** Esta es la técnica clave. El loop de herramientas del AI SDK para automáticamente cuando encuentra una tool sin `execute`. Esto es mucho más limpio que parsear texto libre para detectar que el agente "terminó de razonar" — el agente simplemente llama una función con estructura conocida y el loop para.
+**Why no `execute`?** This is the key technique. The AI SDK tool loop stops automatically when it encounters a tool without `execute`. This is much cleaner than parsing free text to detect that the agent "finished reasoning" — the agent simply calls a function with a known schema and the loop stops.
 
 ---
 
-#### `lib/exa.ts` — El cliente de búsqueda web
+#### `lib/exa.ts` — The web search client
 
-Exa tiene 2 endpoints que usamos:
+Exa has 2 endpoints used by this project:
 
 ```typescript
-// /search — encuentra páginas relevantes
+// /search — finds relevant pages
 export async function searchExa(query: string, numResults = 5): Promise<ExaResult[]> {
   const res = await fetch(`${EXA_BASE}/search`, {
     method: 'POST',
@@ -299,40 +299,40 @@ export async function searchExa(query: string, numResults = 5): Promise<ExaResul
       query,
       numResults,
       type: 'auto',
-      contents: { highlights: true }, // Devuelve fragmentos relevantes automáticamente
+      contents: { highlights: true }, // Returns relevant snippets automatically
     }),
   });
   // ...
 }
 
-// /contents — extrae el texto completo de una URL
+// /contents — extracts the full text of a URL
 export async function readExaPage(url: string): Promise<ExaPage> {
   const res = await fetch(`${EXA_BASE}/contents`, {
     method: 'POST',
     body: JSON.stringify({
       urls: [url],
-      text: { maxCharacters: 8000 }, // Límite para mantener prompts acotados
+      text: { maxCharacters: 8000 }, // Limit to keep prompts bounded
     }),
   });
   // ...
 }
 ```
 
-**¿Por qué Exa en vez de Google/Bing?** Exa devuelve el texto de la página directamente, sin HTML crudo. Esto elimina la necesidad de un parser HTML (Cheerio, Readability) y evita problemas con anti-bots o páginas con JavaScript pesado.
+**Why Exa instead of Google/Bing?** Exa returns the page text directly, without raw HTML. This eliminates the need for an HTML parser (Cheerio, Readability) and avoids problems with anti-bot measures or JavaScript-heavy pages.
 
 ---
 
-#### `lib/rate-limit.ts` — Protección de costos
+#### `lib/rate-limit.ts` — Cost protection
 
 ```typescript
-const buckets = new Map<string, Bucket>(); // En memoria, por instancia
+const buckets = new Map<string, Bucket>(); // In-memory, per instance
 
 export function rateLimit(key: string, opts: RateLimitOptions): RateLimitResult {
   const now = Date.now();
   const existing = buckets.get(key);
 
   if (!existing || existing.resetAt <= now) {
-    // Primera request de esta IP o ventana expirada — reiniciar contador
+    // First request from this IP, or the window has expired — reset the counter
     buckets.set(key, { count: 1, resetAt: now + opts.windowMs });
     return { allowed: true, remaining: opts.max - 1 };
   }
@@ -346,52 +346,52 @@ export function rateLimit(key: string, opts: RateLimitOptions): RateLimitResult 
 }
 ```
 
-Límite: **5 queries por IP por hora**. Al usar un `Map` en memoria, el límite se resetea en cada cold start de Vercel (es decir, no es global entre instancias). Para una demo de portafolio esto es suficiente; en producción se usaría Upstash Redis.
+Limit: **5 queries per IP per hour**. Because it uses an in-memory `Map`, the limit resets on every Vercel cold start (it is not global across instances). For a portfolio demo this is sufficient; in production you would use Upstash Redis.
 
 ---
 
-### Cómo fluye el stream al navegador
+### How the SSE stream reaches the browser
 
-El AI SDK v6 usa un formato de stream propio ("UI Message Stream") que:
-1. Envía eventos parciales para cada paso: inicio de tool call, resultado, texto generado, etc.
-2. El cliente (`useChat` + `DefaultChatTransport`) los consume y actualiza el estado de React automáticamente
-3. Las tarjetas de herramientas aparecen en tiempo real sin ningún polling
+AI SDK v6 uses its own stream format ("UI Message Stream") that:
+1. Sends partial events for each step: tool call start, result, generated text, etc.
+2. The client (`useChat` + `DefaultChatTransport`) consumes them and updates React state automatically
+3. Tool cards appear in real time without any polling
 
 ```
-Cliente                    Servidor (stream SSE)
+Client                     Server (SSE stream)
   |                              |
   |------ POST /api/research --->|
-  |                              | (modelo decide buscar)
-  |<-- data: tool_call_start ---|  → aparece tarjeta "Buscando..."
-  |                              | (Exa devuelve resultados)
-  |<-- data: tool_call_end -----|  → tarjeta muestra resultados
-  |                              | (modelo decide leer página)
-  |<-- data: tool_call_start ---|  → aparece tarjeta "Leyendo..."
-  |                              | (Exa devuelve contenido)
-  |<-- data: tool_call_end -----|  → tarjeta muestra resumen
-  |                              | (modelo llama finalAnswer)
-  |<-- data: text_delta --------|  → respuesta aparece letra a letra
+  |                              | (model decides to search)
+  |<-- data: tool_call_start ---|  → "Searching..." card appears
+  |                              | (Exa returns results)
+  |<-- data: tool_call_end -----|  → card shows results
+  |                              | (model decides to read a page)
+  |<-- data: tool_call_start ---|  → "Reading..." card appears
+  |                              | (Exa returns content)
+  |<-- data: tool_call_end -----|  → card shows summary
+  |                              | (model calls finalAnswer)
+  |<-- data: text_delta --------|  → answer appears character by character
   |<-- data: finish ------------|
 ```
 
 ---
 
-## Stack tecnológico
+## Tech stack
 
-| Capa | Tecnología | ¿Por qué? |
-|------|-----------|-----------|
-| Framework | Next.js 16 App Router | Server Components + Route Handlers + deployment en Vercel |
-| AI SDK | Vercel AI SDK v6 | `ToolLoopAgent`, streaming nativo, `useChat` hook |
-| Modelo | `claude-sonnet-4.6` | Mejor en razonamiento multi-paso y uso de herramientas |
-| Gateway | Vercel AI Gateway | Una sola API key, failover automático, observabilidad |
-| Búsqueda | Exa AI | Devuelve texto limpio directamente (no HTML crudo) |
-| UI | Tailwind v4 + shadcn/ui | Componentes accesibles y estilizado utilitario |
-| Tests | Vitest + happy-dom | Fast unit tests, compatible con ESM |
-| Deploy | Vercel (Hobby) | CI/CD automático desde GitHub |
+| Layer | Technology | Why? |
+|-------|-----------|------|
+| Framework | Next.js 16 App Router | Server Components + Route Handlers + Vercel deployment |
+| AI SDK | Vercel AI SDK v6 | `ToolLoopAgent`, native streaming, `useChat` hook |
+| Model | `claude-sonnet-4.6` | Best at multi-step reasoning and tool use |
+| Gateway | Vercel AI Gateway | Single API key, automatic failover, observability |
+| Search | Exa AI | Returns clean text directly (no raw HTML) |
+| UI | Tailwind v4 + shadcn/ui | Accessible components and utility-first styling |
+| Tests | Vitest + happy-dom | Fast unit tests, ESM-compatible |
+| Deploy | Vercel (Hobby) | Automatic CI/CD from GitHub |
 
 ---
 
-## Setup local
+## Local setup
 
 ```bash
 git clone https://github.com/NeryC/research-agent.git
@@ -400,15 +400,15 @@ npm install
 cp .env.example .env.local
 ```
 
-Edita `.env.local`:
+Edit `.env.local`:
 ```env
-AI_GATEWAY_API_KEY=tu_clave_de_vercel_ai_gateway
-EXA_API_KEY=tu_clave_de_exa
+AI_GATEWAY_API_KEY=your_vercel_ai_gateway_key
+EXA_API_KEY=your_exa_key
 ```
 
-| Variable | Dónde conseguirla |
-|----------|-------------------|
-| `AI_GATEWAY_API_KEY` | [vercel.com](https://vercel.com) → tu equipo → AI Gateway → API Keys |
+| Variable | Where to get it |
+|----------|----------------|
+| `AI_GATEWAY_API_KEY` | [vercel.com](https://vercel.com) → your team → AI Gateway → API Keys |
 | `EXA_API_KEY` | [dashboard.exa.ai](https://dashboard.exa.ai) |
 
 ```bash
@@ -419,14 +419,14 @@ npm run lint
 
 ---
 
-## Decisiones técnicas explicadas
+## Technical decisions explained
 
-### ¿Por qué `ToolLoopAgent` en vez de `streamText` con tools?
+### Why `ToolLoopAgent` instead of `streamText` with tools?
 
-`streamText` con tools requiere que el desarrollador maneje manualmente el loop: detectar si el modelo quiso llamar una tool, ejecutarla, volver a llamar al modelo con el resultado, y decidir cuándo parar. `ToolLoopAgent` encapsula todo esto:
+`streamText` with tools requires the developer to manually manage the loop: detect whether the model wanted to call a tool, execute it, call the model again with the result, and decide when to stop. `ToolLoopAgent` encapsulates all of this:
 
 ```typescript
-// Sin ToolLoopAgent (más verboso, más frágil):
+// Without ToolLoopAgent (more verbose, more fragile):
 let messages = initialMessages;
 for (let i = 0; i < 8; i++) {
   const result = await streamText({ model, messages, tools });
@@ -434,33 +434,33 @@ for (let i = 0; i < 8; i++) {
   messages = [...messages, ...result.responseMessages];
 }
 
-// Con ToolLoopAgent (declarativo):
+// With ToolLoopAgent (declarative):
 const agent = new ToolLoopAgent({ model, tools, stopWhen: stepCountIs(8) });
 const result = await agent.stream({ messages });
 ```
 
-### ¿Por qué Vercel AI Gateway en vez del SDK de Anthropic directamente?
+### Why Vercel AI Gateway instead of the Anthropic SDK directly?
 
-Con el SDK directo necesitas manejar API keys de cada proveedor por separado. Con el Gateway:
-- Una sola `AI_GATEWAY_API_KEY` para todos los modelos
-- Si Anthropic tiene un outage, el Gateway hace failover automático a Vertex o Bedrock
-- El dashboard de Vercel muestra logs y costos de cada request
-- El código no cambia si cambias de proveedor
+With the direct SDK you need to manage API keys for each provider separately. With the Gateway:
+- A single `AI_GATEWAY_API_KEY` for all models
+- If Anthropic has an outage, the Gateway automatically fails over to Vertex or Bedrock
+- The Vercel dashboard shows logs and costs for every request
+- The code does not change if you switch providers
 
-### ¿Por qué `finalAnswer` sin `execute`?
+### Why `finalAnswer` without `execute`?
 
-Alternativa 1: Parsear el texto del modelo para detectar que "terminó". Frágil y no tipado.
+Alternative 1: Parse the model's text output to detect that it "finished." Fragile and untyped.
 
-Alternativa 2: Tool terminal sin `execute`. El modelo llama la tool con un esquema Zod conocido, el SDK para el loop inmediatamente, y tenemos `{ answer: string, sources: Source[] }` con tipos. Cero parsing, cero regex.
+Alternative 2: Terminal tool without `execute`. The model calls the tool with a known Zod schema, the SDK stops the loop immediately, and you get `{ answer: string, sources: Source[] }` fully typed. Zero parsing, zero regex.
 
 ---
 
-## Límites
+## Limits
 
-| Límite | Valor | Razón |
-|--------|-------|-------|
-| Queries por IP/hora | 5 | Proteger cuota de Exa y costos de API |
-| Pasos máximos por query | 8 | Evitar bucles infinitos en queries ambiguas |
-| Resultados por búsqueda | 5 | Balance entre contexto y tamaño del prompt |
-| Contenido por página | 8,000 caracteres | Mantener prompts dentro del presupuesto de tokens |
-| Tiempo máximo de función | 60 segundos | Límite del plan Vercel Hobby |
+| Limit | Value | Reason |
+|-------|-------|--------|
+| Queries per IP/hour | 5 | Protect Exa quota and API costs |
+| Maximum steps per query | 8 | Prevent infinite loops on ambiguous queries |
+| Results per search | 5 | Balance between context and prompt size |
+| Content per page | 8,000 characters | Keep prompts within the token budget |
+| Maximum function duration | 60 seconds | Vercel Hobby plan limit |
