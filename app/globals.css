@@ -154,3 +154,21 @@
 .animate-slide-up {
   animation: slide-up 0.3s ease-out both;
 }
+
+/* Respect user's motion preferences (WCAG 2.1 AA) */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--muted);
+  }
+  .animate-fade-in,
+  .animate-slide-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  /* Suppress Tailwind's animate-spin (used on Loader2 spinners) */
+  .animate-spin {
+    animation: none;
+  }
+}
